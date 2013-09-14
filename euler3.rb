@@ -14,22 +14,22 @@ end
 def biggest_prime_factor(n)
 	return n if is_prime?(n)
 	i = 2.0
+	prime_factor = -1
 	while i <= Math.sqrt(n)
-		factor = n/i
-		if is_whole?(factor) 
-			puts "#{i}: whole: #{factor}"
-			if is_prime?(factor) 
-				puts "Greates prime factor: #{factor}"
-				return factor
-			end
+		if n%i == 0
+			if is_prime?(i)
+				prime_factor = i if ( i > prime_factor  )
+			else
+				factor = n/i				
+				if is_prime?(factor)
+					prime_factor = factor if ( factor > prime_factor)
+				end
+			end			
 		end
 		i += 1
 	end
+	(prime_factor == -1) ? result = "No prime factors" : result = "Greatest prime factor: #{prime_factor}"
+	puts result
 end
 
-def is_whole?(n)
-	return true if n == n.floor
-	false
-end
-
-puts biggest_prime_factor(13195)
+puts biggest_prime_factor(600851475143)
